@@ -23,7 +23,7 @@ LUIS (**L**ist of **U**ser **I**nterface**s**) is framework for collaborative bu
 * **StoryBook** — Start `36 seconds`, Hot Module Reload with sourcemaps `9 seconds`.
 * **LUIS** — Start `400 ms`, Hot Module Reload with sourcemaps `750 ms`. Now that's what I call a significant difference.
 
-Luis is using well known technologies ([Mocha](https://mochajs.org), [React](https://reactjs.org), optionally [Wallaby](https://wallabyjs.com)) and methodologies (TDD, BDD, Snapshot testing), so there is almost nothing new to learn (apart from two new functions, **storyOf** and **itMountsAnd**). Luis, takes away the complex configuration, using [wafl](https://github.com/tomitrescak/wafl) package to set-up your testing environment. 
+Luis is using well known technologies ([Mocha](https://mochajs.org), [React](https://reactjs.org), optionally [Wallaby](https://wallabyjs.com)) and methodologies (TDD, BDD, Snapshot testing), so there is almost nothing new to learn (apart from two new functions, **storyOf** and **itMountsAnd**). Luis, takes away the complex configuration, using [wafl](https://github.com/tomitrescak/wafl) package to set-up your testing environment.
 
 To facilitate your component development, testing, and collaboration LUIS supports four different modes. Each mode is described in detail further below.
 
@@ -70,7 +70,7 @@ Luis has four view modes:
 1. *React*: Displays a "live" React components, used mostly during component development
 2. *Html*: Displays a HTML version of the snapshot and shows side-by-side comparison if snapshots differ.
 3. *Json*: Displays *raw* source of the snapshot and compares the differences
-4. *Snapshots*: Show all saved snapshots for a current test 
+4. *Snapshots*: Show all saved snapshots for a current test
 
 *Tree view* shows all tests and snapshots. It also shows all test results, and if possible, it shows side-by-side comparison of actual vs. expected value. The number next to the test item represent the execution time of the test. When number is:
 
@@ -112,14 +112,14 @@ The only compulsory parameter of the `config` part of the `storyOf` is `componen
 
 ```jsx
 storyOf(
-  'My Component', 
+  'My Component',
   {
     someData: 1,
     get component() {
       return <div>My component</div>
     }
   },
-  function({ someData, component }) { 
+  function({ someData, component }) {
     it ('mounts component', function() {
       const wrapper = mount(component); // now do some tests
     });
@@ -133,7 +133,7 @@ storyOf(
 
 ## itMountsAnd <a name="itMountsAnd"></a>
 
-This funstion is an extension of a classic `it` function. The difference to the original `it` is that it uses `enzyme` to mount a provided component and then unmount once the test is finished. This is important in the browser, since all mounted components would stay mounted forever, until page refresh. Following is the definition of the `itMountsAnd` function:
+This function is an extension of a classic `it` function. The difference to the original `it` is that it uses `enzyme` to mount a provided component and then unmount once the test is finished. This is important in the browser, since all mounted components would stay mounted forever, until page refresh. Following is the definition of the `itMountsAnd` function:
 
 ```typescript
 
@@ -233,7 +233,7 @@ export type Config = {
   /** directory where snapshots are stored relative to the project directory */
   snapshotDir: string;
   /* you can choose following snapshot mode
-   * - tcp: updated snapshots are sent to VS Code extension over TCP. 
+   * - tcp: updated snapshots are sent to VS Code extension over TCP.
    *        [!!! IMPORTANT] Make sure the extension is enabled before running
    * - drive: updated snapshots are automatically saved to your drive
    * - both: snapshots are sent to VS Code extension AND saved to drive
@@ -249,7 +249,7 @@ export type Config = {
 // example
 import { config } from 'chai-match-snapshot';
 config.snapshotDir = '/my/custom/dir';
-``` 
+```
 
 # Adding Test Files  <a name="addingTests"></a>
 
@@ -278,7 +278,7 @@ It is fairly easy to configure your testing environment to work with Luis. Once 
 },
 ```
 
-The `test` executes all tests from the example folder. The `testWatch` executed tests in watch mode (it will stay active and watch for your changes). The `us` and `usWatch`execute tests and update snapshots. The configuration of mocha tests is performed in `[mocha.js](https://github.com/tomitrescak/luis/blob/master/mocha.js)` and `[us.js](https://github.com/tomitrescak/luis/blob/master/us.js)` files. 
+The `test` executes all tests from the example folder. The `testWatch` executed tests in watch mode (it will stay active and watch for your changes). The `us` and `usWatch`execute tests and update snapshots. The configuration of mocha tests is performed in `[mocha.js](https://github.com/tomitrescak/luis/blob/master/mocha.js)` and `[us.js](https://github.com/tomitrescak/luis/blob/master/us.js)` files.
 
 ```js
 // mocha.js
@@ -314,13 +314,13 @@ In our team we :heart: [Wallaby.js](https://wallabyjs.com). It is THE best test 
 setup: function(wallaby) {
   const path = require('path');
   const snapshotDir= path.join(wallaby.localProjectDir, 'src', 'tests', 'snapshots');
-  
-  require('wafl').setup({ 
-    wallaby, 
-    // if you want wallaby to save snapshots, you need to specify absolute path to their location 
-    snapshotDir, 
+
+  require('wafl').setup({
+    wallaby,
+    // if you want wallaby to save snapshots, you need to specify absolute path to their location
+    snapshotDir,
     // see matchSnapshot configuration for options: 'tcp' | 'drive' | 'both' | 'test'
-    snapshotMode: 'tcp' 
+    snapshotMode: 'tcp'
   });
 }
 ```
@@ -341,7 +341,7 @@ DONE! Pure joy.
 
 The Extension for Visual Studio Code comes with two awesome functionalities:
 
-1. You can visualise current snapshot directly in Code environment. Just press `CMD + P` and search from `Luis: Snapshot Preview`. The snapshot will automatically load snapshots from the current test. This functionality works really well with automated test runner such as *wallabyjs*, or *mocha* or *jest* in watch test mode, and with snapshot delivery over TCP, since snapshots automatically change as you type. 
+1. You can visualise current snapshot directly in Code environment. Just press `CMD + P` and search from `Luis: Snapshot Preview`. The snapshot will automatically load snapshots from the current test. This functionality works really well with automated test runner such as *wallabyjs*, or *mocha* or *jest* in watch test mode, and with snapshot delivery over TCP, since snapshots automatically change as you type.
 
     ![luis](https://user-images.githubusercontent.com/2682705/32410567-ad66cb80-c217-11e7-9514-19232830aadd.gif)
 
